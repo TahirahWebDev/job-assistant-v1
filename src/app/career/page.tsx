@@ -1,20 +1,20 @@
-// career/page.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import ChatBubble from '../components/ChatBubble';
 import ChatInput from '../components/ChatInput';
 
-export default function CareerPage() {
+export default function ChatPage() {
   const [messages, setMessages] = useState<string[]>([]);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const handleSend = async (input: string) => {
-    setMessages(prev => [...prev, `You: ${input}`, "Assistant: ..."]);
+    setMessages(prev => [...prev, `You: ${input}`, 'Assistant: ...']);
 
     try {
-      const res = await fetch("/api/chat", { // Changed to /api/chat
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: input }),
       });
 
@@ -27,25 +27,38 @@ export default function CareerPage() {
         return updated;
       });
     } catch (err) {
-      setMessages(prev => [...prev, "Assistant: Error talking to backend"]);
+      setMessages(prev => [...prev, 'Assistant: Error talking to backend']);
     }
   };
 
-  return (
-    <main className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4 py-10">
-      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-3xl">
-        <h1 className="text-3xl font-bold text-center mb-6 text-black">Career Path Suggestion</h1>
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
-        <div className="bg-gray-100 rounded-lg p-4 h-64 overflow-y-auto mb-4">
+  return (
+      
+    <main className="min-h-screen bg-gray-100 pt-2 px-4 pb-6 flex justify-center font-serif">
+      <div className="w-full max-w-5xl bg-gray-100 rounded-2xl flex flex-col justify-between">
+        <h1 className='text-center font-bold font-serif text-3xl pt-6'>Ask About Career</h1>
+        {/* Chat Area */}
+        <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
           {messages.map((msg, idx) => {
-            const isUser = msg.startsWith("You:");
+            const isUser = msg.startsWith('You:');
             return (
-              <ChatBubble key={idx} message={msg.replace("You: ", "").replace("Assistant: ", "")} isUser={isUser} />
+              <ChatBubble
+                key={idx}
+                message={msg.replace('You: ', '').replace('Assistant: ', '')}
+                isUser={isUser}
+              />
             );
           })}
+          <div ref={scrollRef} />
         </div>
 
-        <ChatInput onSend={handleSend} />
+        {/* Input Area */}
+        <div className="border-t border-gray-200 px-4 py-3 bg-white rounded-b-2xl">
+          <ChatInput onSend={handleSend} />
+        </div>
       </div>
     </main>
   );

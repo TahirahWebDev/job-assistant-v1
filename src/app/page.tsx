@@ -7,10 +7,10 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <main className="h-[766px] flex flex-col items-center justify-center px-4 py-10 bg-gray-50">
+    <main className="min-h-screen flex flex-col items-center justify-start px-4 py-10 bg-gray-50 pt-24">
 
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-4xl text-center">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800 font-serif">AI Job Readiness Assistant</h2>
+        <h2 className="text-3xl font-bold mb-6 text-gray-800 font-serif">AI Job Assistant</h2>
 
         <p className="text-sm text-gray-500 mb-6">
         {new Date().toLocaleDateString("en-US", {
@@ -61,3 +61,5 @@ export default function Home() {
     </main>
   );
 }
+
+          

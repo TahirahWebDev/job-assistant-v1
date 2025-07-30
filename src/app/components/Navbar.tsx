@@ -1,9 +1,9 @@
-// src/components/Navbar.tsx
 'use client';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,28 +14,26 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-800 text-white p-4 shadow-md">
+    <nav className="bg-white text-gray-800 p-4 shadow-sm border-b border-gray-200 h-20">
       <div className="container mx-auto flex justify-between items-center">
-        {/* Logo */}
-        <Link href="/" className="logo font-bold text-2xl font-serif">
-          <span className='text-orange-200'>AI</span> <span className='text-blue-200'>Job</span> <span className='text-green-200'>Assistant</span>
-        </Link>
+    
+          <span className="font-bold text-xl font-serif text-gray-700">AI Job Assistant</span>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-4">
-          <Link href="/" className="hover:bg-gray-400 px-3 py-2 rounded font-mono text-1x">
+          <Link href="/" className="hover:bg-orange-100 px-3 py-2 rounded font-serif text-md">
             Home
           </Link>
-          <Link href="/chat" className="hover:bg-gray-400 px-3 py-2 rounded font-mono text-1x">
+          <Link href="/chat" className="hover:bg-blue-100 px-3 py-2 rounded font-serif text-md">
             Chat
           </Link>
-          <Link href="/resume" className="hover:bg-gray-400 px-3 py-2 rounded font-mono text-1x">
+          <Link href="/resume" className="hover:bg-orange-100 px-3 py-2 rounded font-serif text-md">
             Resume
           </Link>
-          <Link href="/interview" className="hover:bg-gray-400 px-3 py-2 rounded font-mono text-1x">
+          <Link href="/interview" className="hover:bg-blue-100 px-3 py-2 rounded font-serif text-md">
             Interview
           </Link>
-          <Link href="/career" className="hover:bg-gray-400 px-3 py-2 rounded font-mono text-1x">
+          <Link href="/career" className="hover:bg-green-100 px-3 py-2 rounded font-serif text-md">
             Career
           </Link>
         </div>
@@ -58,20 +56,20 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden mt-2">
-          <Link href="/" className="block px-3 py-2 hover:bg-blue-700 rounded">
+        <div className="md:hidden mt-2 space-y-1">
+          <Link href="/" className="block px-3 py-2 hover:bg-orange-100 rounded font-serif text-sm">
             Home
           </Link>
-          <Link href="/chat" className="block px-3 py-2 hover:bg-blue-700 rounded">
+          <Link href="/chat" className="block px-3 py-2 hover:bg-blue-100 rounded font-serif text-sm">
             Chat
           </Link>
-          <Link href="/resume" className="block px-3 py-2 hover:bg-blue-700 rounded">
+          <Link href="/resume" className="block px-3 py-2 hover:bg-orange-100 rounded font-serif text-sm">
             Resume
           </Link>
-          <Link href="/interview" className="block px-3 py-2 hover:bg-blue-700 rounded">
+          <Link href="/interview" className="block px-3 py-2 hover:bg-blue-100 rounded font-serif text-sm">
             Interview
           </Link>
-          <Link href="/career" className="block px-3 py-2 hover:bg-blue-700 rounded">
+          <Link href="/career" className="block px-3 py-2 hover:bg-green-100 rounded font-serif text-sm">
             Career
           </Link>
         </div>
