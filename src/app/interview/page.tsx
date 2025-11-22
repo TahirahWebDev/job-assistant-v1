@@ -8,28 +8,47 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<string[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const handleSend = async (input: string) => {
-    setMessages(prev => [...prev, `You: ${input}`, 'Assistant: ...']);
+ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8000";
 
-    try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: input }),
-      });
+const handleSend = async (input: string) => {
+  setMessages(prev => [...prev, `You: ${input}`, 'Assistant: ...']);
+  try {
+    const url = BACKEND_URL ? `${BACKEND_URL}/api/chat` : '/api/chat';
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: input }),
+    });
 
-      const data = await res.json();
-      const reply = data.response;
+    const data = await res.json();
 
+    if (!res.ok) {
+      console.error('Backend error', res.status, data);
+      const errMsg = data.detail || data.error || `Server error ${res.status}`;
       setMessages(prev => {
         const updated = [...prev];
-        updated[updated.length - 1] = `Assistant: ${reply}`;
+        updated[updated.length - 1] = `Assistant: Error: ${errMsg}`;
         return updated;
       });
-    } catch (err) {
-      setMessages(prev => [...prev, 'Assistant: Error talking to backend']);
+      return;
     }
-  };
+
+    const reply = data.response;
+    if (!reply) {
+      console.warn('No response field from backend', data);
+    }
+
+    setMessages(prev => {
+      const updated = [...prev];
+      updated[updated.length - 1] = `Assistant: ${reply ?? 'No reply from server'}`;
+      return updated;
+    });
+  } catch (err) {
+    console.error('Fetch error', err);
+    setMessages(prev => [...prev, 'Assistant: Error talking to backend']);
+  }
+};
+
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });

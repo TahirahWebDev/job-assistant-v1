@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Image from 'next/image';
-
+import logo from '../../../public/images/logo.png';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -17,12 +17,22 @@ export default function Navbar() {
     <nav className="bg-white text-gray-800 p-4 shadow-sm border-b border-gray-200 h-20">
       <div className="container mx-auto flex justify-between items-center">
     
-          <span className="font-bold text-xl font-serif text-gray-700">AI Job Assistant</span>
+          <span className="font-bold text-xl font-serif text-gray-700">
+            <Image
+              src={logo}
+              alt="about-us"
+              width={200}
+              height={200}
+            />
+          </span>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-4">
           <Link href="/" className="hover:bg-orange-100 px-3 py-2 rounded font-serif text-md">
             Home
+          </Link>
+          <Link href="/about" className="hover:bg-green-100 px-3 py-2 rounded font-serif text-md">
+            About
           </Link>
           <Link href="/chat" className="hover:bg-blue-100 px-3 py-2 rounded font-serif text-md">
             Chat
