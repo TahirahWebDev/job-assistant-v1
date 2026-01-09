@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Twitter, Linkedin, Mail, Github, Instagram } from "lucide-react";
+// Removed Twitter and Mail to fix "Defined but never used" errors
+import { Linkedin, Github, Instagram } from "lucide-react";
 import logo1 from "../../../public/images/logo1.png"; 
 
 export default function Footer() {
@@ -53,7 +54,7 @@ export default function Footer() {
             <div className="flex gap-3 mb-6">
                <SocialLink href="https://www.linkedin.com/in/tahirah-roohi/" icon={<Linkedin size={18} />} hoverColor="hover:text-blue-500" />
                <SocialLink href="https://github.com/Mehak-Akram/" icon={<Github size={18} />} hoverColor="hover:text-white" />
-                <SocialLink href="https://www.instagram.com/maryam.arif_?igsh=NzRsYmZmc2h3MXlq" icon={<Instagram size={18} />} hoverColor="hover:text-blue-400" />
+               <SocialLink href="https://www.instagram.com/maryam.arif_?igsh=NzRsYmZmc2h3MXlq" icon={<Instagram size={18} />} hoverColor="hover:text-pink-500" />
             </div>
             <p className="text-[11px] font-medium text-gray-600 tracking-tight italic">
               Empowering the next generation of talent.
@@ -77,7 +78,6 @@ export default function Footer() {
   );
 }
 
-// Helper component for Social Icons
 function SocialLink({ href, icon, hoverColor }: { href: string; icon: React.ReactNode; hoverColor: string }) {
   return (
     <a 
