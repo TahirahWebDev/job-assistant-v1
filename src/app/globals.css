@@ -3,3 +3,34 @@
 .logo{
   text-shadow: 1px 1px 2px rgb(44, 102, 156), 0 0 1em rgb(214, 163, 68), 0 0 0.2em #438373;
 }
+
+
+/* Styling for Markdown elements inside the Chat Bubble */
+.custom-chat-prose strong {
+  font-weight: 700 !important;
+  color: #ffffff !important; /* Makes bold text pure white */
+}
+
+.custom-chat-prose ul {
+  list-style-type: disc !important;
+  margin-left: 1.5rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.custom-chat-prose ol {
+  list-style-type: decimal !important;
+  margin-left: 1.5rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.custom-chat-prose li {
+  margin-bottom: 0.5rem !important;
+}
+
+.custom-chat-prose p {
+  margin-bottom: 0.75rem !important;
+}
+
+.custom-chat-prose p:last-child {
+  margin-bottom: 0 !important;
+}

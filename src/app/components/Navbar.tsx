@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Image from 'next/image';
-import logo from '../../../public/images/logo.png';
+import logo from '../../../public/images/logo1.png';
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -14,43 +15,35 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white text-gray-800 p-4 shadow-sm border-b border-gray-200 h-20">
-      <div className="container mx-auto flex justify-between items-center">
-    
-          <span className="font-bold text-xl font-serif text-gray-700">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#080808]/80 backdrop-blur-md border-b border-white/5 h-20">
+      <div className="container mx-auto h-full flex justify-between items-center px-6">
+        
+        {/* Logo Section */}
+        <Link href="/" className="flex items-center group transition-transform hover:scale-105">
+          <div className="relative">
             <Image
               src={logo}
-              alt="about-us"
-              width={200}
-              height={200}
+              alt="AI Job Assistant Logo"
+              width={160}
+              height={160}
+              className="object-contain"
             />
-          </span>
+          </div>
+        </Link>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-4">
-          <Link href="/" className="hover:bg-orange-100 px-3 py-2 rounded font-serif text-md">
-            Home
-          </Link>
-          <Link href="/about" className="hover:bg-green-100 px-3 py-2 rounded font-serif text-md">
-            About
-          </Link>
-          <Link href="/chat" className="hover:bg-blue-100 px-3 py-2 rounded font-serif text-md">
-            Chat
-          </Link>
-          <Link href="/resume" className="hover:bg-orange-100 px-3 py-2 rounded font-serif text-md">
-            Resume
-          </Link>
-          <Link href="/interview" className="hover:bg-blue-100 px-3 py-2 rounded font-serif text-md">
-            Interview
-          </Link>
-          <Link href="/career" className="hover:bg-green-100 px-3 py-2 rounded font-serif text-md">
-            Career
-          </Link>
+        {/* Desktop Menu - Refined Glass Style */}
+        <div className="hidden md:flex items-center space-x-1">
+          <NavLink href="/" label="Home" />
+          <NavLink href="/about" label="About" />
+          <NavLink href="/chat" label="Chat" />
+          <NavLink href="/resume" label="Resume" />
+          <NavLink href="/interview" label="Interview" />
+          <NavLink href="/career" label="Career" />
         </div>
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden focus:outline-none"
+          className="md:hidden p-2 text-gray-400 hover:text-white transition-colors"
           onClick={toggleMenu}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,26 +57,41 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Dark Slide Down */}
       {isOpen && (
-        <div className="md:hidden mt-2 space-y-1">
-          <Link href="/" className="block px-3 py-2 hover:bg-orange-100 rounded font-serif text-sm">
-            Home
-          </Link>
-          <Link href="/chat" className="block px-3 py-2 hover:bg-blue-100 rounded font-serif text-sm">
-            Chat
-          </Link>
-          <Link href="/resume" className="block px-3 py-2 hover:bg-orange-100 rounded font-serif text-sm">
-            Resume
-          </Link>
-          <Link href="/interview" className="block px-3 py-2 hover:bg-blue-100 rounded font-serif text-sm">
-            Interview
-          </Link>
-          <Link href="/career" className="block px-3 py-2 hover:bg-green-100 rounded font-serif text-sm">
-            Career
-          </Link>
+        <div className="md:hidden absolute top-20 left-0 right-0 bg-[#0a0a0a] border-b border-white/10 p-4 space-y-2 animate-in slide-in-from-top duration-300">
+          <MobileNavLink href="/" label="Home" />
+          <MobileNavLink href="/about" label="About" />
+          <MobileNavLink href="/chat" label="Chat" />
+          <MobileNavLink href="/resume" label="Resume" />
+          <MobileNavLink href="/interview" label="Interview" />
+          <MobileNavLink href="/career" label="Career" />
         </div>
       )}
     </nav>
+  );
+}
+
+// Sub-component for Desktop Links
+function NavLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link 
+      href={href} 
+      className="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 tracking-wide"
+    >
+      {label}
+    </Link>
+  );
+}
+
+// Sub-component for Mobile Links
+function MobileNavLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link 
+      href={href} 
+      className="block px-4 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
+    >
+      {label}
+    </Link>
   );
 }
